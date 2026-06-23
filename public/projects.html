@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work | Clark Vowels</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/lightbox.css">
+
+  <style>
+    :root {
+      --brand-black: #111111;
+      --brand-white: #ffffff;
+      --brand-gray: #f5f5f5;
+      --font-main: 'Inter', Helvetica, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-main);
+      background: var(--brand-white);
+      color: var(--brand-black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--brand-black);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--brand-black);
+      text-decoration: none;
+      opacity: 0.85;
+    }
+    .nav-links a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+    .nav-links a[aria-current="page"] { opacity: 1; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .page-sub {
+      margin-top: 1.25rem;
+      color: rgba(0,0,0,0.72);
+      max-width: 72ch;
+      font-size: 1.1rem;
+      line-height: 1.75;
+    }
+
+    /* ─── Category sections ──────────────────────────────────────── */
+    .cat { margin-top: 3.5rem; }
+    .cat-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .cat-title .count {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: rgba(0,0,0,0.32);
+      letter-spacing: 0.08em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .grid.shorts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--brand-white);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+    }
+    .card-media {
+      background: var(--brand-black);
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background-image:
+        radial-gradient(1200px 500px at 10% 20%, rgba(255,255,255,0.10), rgba(255,255,255,0) 55%),
+        linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0.35));
+      background-size: cover;
+      background-position: center;
+    }
+    .card-media.vertical { aspect-ratio: 9 / 16; }
+    .card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.05);
+      transform: scale(1.01);
+      transition: transform 220ms ease, filter 220ms ease;
+    }
+    .card-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.12) 55%, rgba(0,0,0,0.08) 100%);
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 220ms ease;
+    }
+    .card-media .play-badge {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.92);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      user-select: none;
+      backdrop-filter: blur(10px);
+    }
+    .card-media .play-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.14);
+    }
+    .card:hover .card-thumb,
+    .card:focus-within .card-thumb {
+      transform: scale(1.03);
+      filter: contrast(1.08) saturate(1.03);
+    }
+    .card:hover .card-media::after,
+    .card:focus-within .card-media::after {
+      opacity: 0.7;
+    }
+    .card-body {
+      padding: 1.1rem 1.1rem 1.35rem;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+      line-height: 1.1;
+    }
+    .grid.shorts .card-title { font-size: 1rem; }
+    .watch-box {
+      display: block;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--brand-white);
+      background: var(--brand-black);
+      border-radius: 14px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      user-select: none;
+      cursor: pointer;
+    }
+    .watch-box:hover {
+      background: transparent;
+      color: var(--brand-black);
+      border-color: var(--brand-black);
+    }
+
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      color: rgba(0,0,0,0.6);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      background: var(--brand-gray);
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .grid.shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .container { padding: 3rem 1.25rem 4rem; }
+      nav { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">CLARK.</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Stories</a></li>
+      <li><a href="projects.html" aria-current="page">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1 class="page-title">Work.</h1>
+    <p class="page-sub">Freelance media is about more than just pressing record. It takes an understanding of the environment, the subject, and the narrative underneath. Whether I'm directing brand promotions or shooting outdoor lifestyle documentaries, my goal is to help clients tell honest, beautiful stories in service of the people and places behind them. Storytelling is how we pass ideas forward, and that's the work worth doing.</p>
+
+    <!-- ─── Long Form ─────────────────────────────────────────── -->
+    <section class="cat">
+      <h2 class="cat-title">Long Form <span class="count">Films &amp; features</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="card-media" data-video="nw-kidney-kids">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/nw-kidney-kids.jpg" alt="NW Kidney Kids thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">NW Kidney Kids</h3>
+            <a class="watch-box" href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" data-video="dream-build">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/dream-build.jpg" alt="Chris King — Dream Build thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Chris King — Dream Build</h3>
+            <a class="watch-box" href="https://youtu.be/d704kzscwJc" target="_blank" rel="noopener" data-video="dream-build">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" data-video="ski-club-movie">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/ski-club-movie.jpg" alt="Ski Club Da Movie thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Gonzaga Ski Club — Ski Club Da Movie</h3>
+            <a class="watch-box" href="https://youtu.be/3Bt_oEPswZ0" target="_blank" rel="noopener" data-video="ski-club-movie">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── Short Form ────────────────────────────────────────── -->
+    <section class="cat">
+      <h2 class="cat-title">Short Form <span class="count">Reels &amp; shorts</span></h2>
+      <div class="grid shorts">
+        <article class="card">
+          <div class="card-media vertical" data-video="splash-reel">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/splash-reel.jpg" alt="Chris King — Splash Reel thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Chris King — Splash</h3>
+            <a class="watch-box" href="https://youtube.com/shorts/_NVJiuPBWW0" target="_blank" rel="noopener" data-video="splash-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media vertical" data-video="outdoors-reel">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/outdoors-reel.jpg" alt="Gonzaga Outdoors Reel thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Gonzaga Outdoors</h3>
+            <a class="watch-box" href="https://youtube.com/shorts/t06KRDObvN4" target="_blank" rel="noopener" data-video="outdoors-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media vertical" data-video="egg-cartons-reel">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/egg-cartons-reel.jpg" alt="Chris King — Egg Cartons Reel thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Chris King — Egg Cartons</h3>
+            <a class="watch-box" href="https://youtube.com/shorts/l-hOLkpKNRs" target="_blank" rel="noopener" data-video="egg-cartons-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media vertical" data-video="headset-reel">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/headset-reel.jpg" alt="Chris King — Headset Reel thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Chris King — Headset</h3>
+            <a class="watch-box" href="https://youtube.com/shorts/U-tI7NMlQlM" target="_blank" rel="noopener" data-video="headset-reel">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── Passion / Personal ────────────────────────────────── -->
+    <section class="cat">
+      <h2 class="cat-title">Passion &amp; Personal <span class="count">Projects close to home</span></h2>
+      <div class="grid">
+        <article class="card">
+          <div class="card-media" data-video="yankaaz">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/yankaaz.jpg" alt="Yankaaz thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Yankaaz</h3>
+            <a class="watch-box" href="https://youtu.be/-1PLFcgTh7I" target="_blank" rel="noopener" data-video="yankaaz">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" data-video="incomplete-memory">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/incomplete-memory.jpg" alt="An Incomplete Memory of a High School Summer thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">An Incomplete Memory of a High School Summer</h3>
+            <a class="watch-box" href="https://youtu.be/wa33XkWH7uo" target="_blank" rel="noopener" data-video="incomplete-memory">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" data-video="costa-rica">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/costa-rica.jpg" alt="Costa Rica Edit thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Costa Rica Edit</h3>
+            <a class="watch-box" href="https://youtu.be/Dp8oqFpv5i8" target="_blank" rel="noopener" data-video="costa-rica">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" data-video="jazz">
+            <div class="play-badge"><span class="play-dot"></span> Watch</div>
+            <img class="card-thumb" src="assets/thumbnails/jazz.jpg" alt="Gonzaga Jazz — Live Recording Session thumbnail" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Gonzaga Jazz — Live Recording Session</h3>
+            <a class="watch-box" href="https://youtu.be/Hhq83PK2Z_4" target="_blank" rel="noopener" data-video="jazz">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Clark Vowels.</p>
+  </footer>
+
+  <script src="assets/lightbox.js" defer></script>
+</body>
+</html>

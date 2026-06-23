@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethos | Clark Vowels</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand-black: #111111;
+      --brand-white: #ffffff;
+      --brand-gray: #f5f5f5;
+      --font-main: 'Inter', Helvetica, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: var(--brand-white);
+      color: var(--brand-black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--brand-black);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--brand-black);
+      text-decoration: none;
+      opacity: 0.85;
+    }
+    .nav-links a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+    .nav-links a[aria-current="page"] { opacity: 1; }
+
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem 2rem;
+      overflow: hidden;
+      background: #0c0c0c;
+      color: var(--brand-white);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('Photos/WideShot.JPG');
+      background-size: cover;
+      background-position: center;
+      filter: contrast(1.05) saturate(1.05);
+      transform: scale(1.03);
+      z-index: 0;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.2) 100%);
+      z-index: 1;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1050px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 0.5rem;
+    }
+    .kicker {
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+    }
+    .title {
+      margin-top: 1rem;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .quote {
+      margin-top: 1.5rem;
+      font-size: clamp(1.35rem, 2.8vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      max-width: 34ch;
+    }
+    .quote span {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .content {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .panel {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 18px;
+      background: var(--brand-white);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+      padding: 1.75rem;
+    }
+    .body {
+      color: rgba(0,0,0,0.78);
+      line-height: 1.85;
+      font-size: 1.08rem;
+    }
+    .body p + p { margin-top: 1rem; }
+    .body strong {
+      display: inline-block;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.85);
+      margin-top: 0.25rem;
+    }
+
+    .side h2 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .pill {
+      display: inline-flex;
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.12);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      margin: 0.35rem 0.35rem 0 0;
+      background: rgba(0,0,0,0.02);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      user-select: none;
+      width: 100%;
+      margin-top: 1rem;
+      text-align: center;
+      background: var(--brand-black);
+      color: var(--brand-white);
+    }
+    .btn:hover {
+      background: transparent;
+      color: var(--brand-black);
+      border-color: var(--brand-black);
+    }
+
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      color: rgba(0,0,0,0.6);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      background: var(--brand-gray);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 3rem 1.25rem; }
+      .content { grid-template-columns: 1fr; padding: 3rem 1.25rem 4rem; }
+      .quote { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">CLARK.</a>
+    <ul class="nav-links">
+      <li><a href="ethos.html" aria-current="page">Ethos</a></li>
+      <li><a href="index.html#work">Stories</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker">My Ethos</div>
+      <h1 class="title">A Global Lens.</h1>
+      <div class="quote"><span>Universal threads,</span> clear narratives.</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="panel">
+      <div class="body">
+        <p><strong>A Global Lens</strong></p>
+        <p>My global perspective comes from firsthand experience. I grew up in Australia, studied in New Zealand, and visit family in South Africa. Immersing myself in diverse cultures sharpened my ability to adapt instantly. It taught me to find the universal threads that connect us. This cultural fluency allows me to translate complex ideas into clear visual narratives.</p>
+        <p><strong>Grounded Perspectives</strong></p>
+        <p>I built a strong academic foundation in economics and data analytics. My work sits at the intersection of analytical rigor and visual storytelling. Beautiful visuals are only half the equation. I seek to understand the true purpose behind a brand before focusing on the final product. This structured approach ensures my media is both aesthetically striking and strategically effective.</p>
+        <p><strong>Dynamic Exploration</strong></p>
+        <p>I thrive in high energy environments. I live for the capture. I navigate backcountry ski lines, direct brand narratives, and collaborate in jazz ensembles. I comfortably manage multiple moving parts across all these spaces while staying detail oriented. Dynamic settings demand technical precision alongside quick thinking. I bring this tenacious mindset to every project to turn immediate challenges into creative opportunities.</p>
+      </div>
+    </section>
+
+    <aside class="panel side">
+      <h2>Focus</h2>
+      <div>
+        <span class="pill">Story</span>
+        <span class="pill">Place</span>
+        <span class="pill">Precision</span>
+        <span class="pill">Momentum</span>
+        <span class="pill">Culture</span>
+      </div>
+      <a class="btn" href="projects.html">See Projects</a>
+      <a class="btn" href="contact.html" style="margin-top: 0.75rem;">Work With Me</a>
+    </aside>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Clark Vowels.</p>
+  </footer>
+</body>
+</html>

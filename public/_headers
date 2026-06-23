@@ -1,0 +1,4 @@
+# Cloudflare Pages: cache the compressed media aggressively (they're versioned by
+# content and rarely change). HTML stays revalidated so edits go live immediately.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

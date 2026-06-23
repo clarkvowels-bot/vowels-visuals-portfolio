@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelance Media | Clark Vowels</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/lightbox.css">
+
+  <style>
+    :root {
+      --brand-black: #111111;
+      --brand-white: #ffffff;
+      --brand-gray: #f5f5f5;
+      --font-main: 'Inter', Helvetica, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: var(--brand-white);
+      color: var(--brand-black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Navigation ────────────────────────────────────────────────── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: transparent;
+    }
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--brand-white);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--brand-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .nav-back:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .nav-links {
+      display: flex;
+      gap: 1.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      max-width: min(640px, 70vw);
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--brand-white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      opacity: 0.95;
+    }
+    .nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; opacity: 1; }
+    .nav-links a[aria-current="page"] { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ─── Hero Video Header ─────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem;
+      overflow: hidden;
+    }
+    .bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 100%);
+      z-index: -1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: var(--brand-white);
+      max-width: 800px;
+    }
+    .hero-tag {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      color: #ccc;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── Story Context Block ───────────────────────────────────────── */
+    .context-block {
+      padding: 6rem 4rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: var(--brand-black);
+    }
+    .context-block h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── Video Index ───────────────────────────────────────────────── */
+    .video-index {
+      padding: 0 4rem 6rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .video-index h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .video-grid.shorts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .cat { margin-top: 2.5rem; }
+    .cat-title {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.55);
+      padding-bottom: 0.7rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .cat-title .count {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: rgba(0,0,0,0.32);
+      letter-spacing: 0.08em;
+    }
+    .video-thumb.vertical { aspect-ratio: 9 / 16; }
+    .video-card {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--brand-white);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+    }
+    .video-card video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--brand-black);
+    }
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      object-fit: cover;
+      background: var(--brand-black);
+      cursor: pointer;
+    }
+    .video-meta {
+      padding: 1.25rem;
+    }
+    .video-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .watch-box {
+      display: block;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--brand-white);
+      background: var(--brand-black);
+      border-radius: 12px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      user-select: none;
+      cursor: pointer;
+    }
+    .watch-box:hover {
+      background: transparent;
+      color: var(--brand-black);
+      border-color: var(--brand-black);
+    }
+
+    /* ─── Photo Gallery Grid ────────────────────────────────────────── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 0 4rem 6rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      background: var(--brand-gray);
+    }
+    /* Make the first image span both columns for impact */
+    .gallery .featured {
+      grid-column: 1 / -1;
+      aspect-ratio: 21/9;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      background: var(--brand-black);
+      color: var(--brand-white);
+      padding: 4rem;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      #hero { padding: 2rem; height: 60vh; }
+      .context-block { padding: 4rem 2rem; }
+      .video-index { padding: 0 2rem 4rem; }
+      .video-grid { grid-template-columns: 1fr; }
+      .video-grid.shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gallery { padding: 0 2rem 4rem; grid-template-columns: 1fr; }
+      .gallery .featured { aspect-ratio: 16/9; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">CLARK.</a>
+    <ul class="nav-links" aria-label="Primary">
+      <li><a href="index.html#work">Stories</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <video class="bg-video" autoplay loop muted playsinline preload="auto" poster="assets/loops/incomplete-memory.jpg" src="assets/loops/incomplete-memory.mp4"></video>
+    <div class="hero-content">
+      <p class="hero-tag">Storytelling & Consulting</p>
+      <h1 class="hero-title">Authentic Narratives.</h1>
+    </div>
+  </section>
+
+  <section class="context-block">
+    <h2>Capturing the Culture</h2>
+    <p>Freelance media is about more than just pressing record. It requires an understanding of the environment, the subject, and the underlying narrative. Whether I am directing brand promotions or shooting outdoor lifestyle documentaries, my goal is to help clients tell authentic stories that drive culture and engagement in the outdoor space.</p>
+  </section>
+
+  <section class="video-index">
+    <h2>Video Work</h2>
+
+    <!-- ─── Long Form ─────────────────────────────────────────── -->
+    <div class="cat">
+      <h3 class="cat-title">Long Form <span class="count">Films &amp; features</span></h3>
+      <div class="video-grid">
+        <article class="video-card">
+          <a href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">
+            <img class="video-thumb" src="assets/thumbnails/nw-kidney-kids.jpg" alt="NW Kidney Kids thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">NW Kidney Kids</div>
+            <a class="watch-box" href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/d704kzscwJc" target="_blank" rel="noopener" data-video="dream-build">
+            <img class="video-thumb" src="assets/thumbnails/dream-build.jpg" alt="Chris King — Dream Build thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Chris King — Dream Build</div>
+            <a class="watch-box" href="https://youtu.be/d704kzscwJc" target="_blank" rel="noopener" data-video="dream-build">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/3Bt_oEPswZ0" target="_blank" rel="noopener" data-video="ski-club-movie">
+            <img class="video-thumb" src="assets/thumbnails/ski-club-movie.jpg" alt="Ski Club Da Movie thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Gonzaga Ski Club — Ski Club Da Movie</div>
+            <a class="watch-box" href="https://youtu.be/3Bt_oEPswZ0" target="_blank" rel="noopener" data-video="ski-club-movie">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ─── Short Form ────────────────────────────────────────── -->
+    <div class="cat">
+      <h3 class="cat-title">Short Form <span class="count">Reels &amp; shorts</span></h3>
+      <div class="video-grid shorts">
+        <article class="video-card">
+          <a href="https://youtube.com/shorts/_NVJiuPBWW0" target="_blank" rel="noopener" data-video="splash-reel">
+            <img class="video-thumb vertical" src="assets/thumbnails/splash-reel.jpg" alt="Chris King — Splash Reel thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Chris King — Splash</div>
+            <a class="watch-box" href="https://youtube.com/shorts/_NVJiuPBWW0" target="_blank" rel="noopener" data-video="splash-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtube.com/shorts/t06KRDObvN4" target="_blank" rel="noopener" data-video="outdoors-reel">
+            <img class="video-thumb vertical" src="assets/thumbnails/outdoors-reel.jpg" alt="Gonzaga Outdoors Reel thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Gonzaga Outdoors</div>
+            <a class="watch-box" href="https://youtube.com/shorts/t06KRDObvN4" target="_blank" rel="noopener" data-video="outdoors-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtube.com/shorts/l-hOLkpKNRs" target="_blank" rel="noopener" data-video="egg-cartons-reel">
+            <img class="video-thumb vertical" src="assets/thumbnails/egg-cartons-reel.jpg" alt="Chris King — Egg Cartons Reel thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Chris King — Egg Cartons</div>
+            <a class="watch-box" href="https://youtube.com/shorts/l-hOLkpKNRs" target="_blank" rel="noopener" data-video="egg-cartons-reel">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtube.com/shorts/U-tI7NMlQlM" target="_blank" rel="noopener" data-video="headset-reel">
+            <img class="video-thumb vertical" src="assets/thumbnails/headset-reel.jpg" alt="Chris King — Headset Reel thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Chris King — Headset</div>
+            <a class="watch-box" href="https://youtube.com/shorts/U-tI7NMlQlM" target="_blank" rel="noopener" data-video="headset-reel">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ─── Passion / Personal ────────────────────────────────── -->
+    <div class="cat">
+      <h3 class="cat-title">Passion &amp; Personal <span class="count">Projects close to home</span></h3>
+      <div class="video-grid">
+        <article class="video-card">
+          <a href="https://youtu.be/-1PLFcgTh7I" target="_blank" rel="noopener" data-video="yankaaz">
+            <img class="video-thumb" src="assets/thumbnails/yankaaz.jpg" alt="Yankaaz thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Yankaaz</div>
+            <a class="watch-box" href="https://youtu.be/-1PLFcgTh7I" target="_blank" rel="noopener" data-video="yankaaz">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/wa33XkWH7uo" target="_blank" rel="noopener" data-video="incomplete-memory">
+            <img class="video-thumb" src="assets/thumbnails/incomplete-memory.jpg" alt="An Incomplete Memory of a High School Summer thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">An Incomplete Memory of a High School Summer</div>
+            <a class="watch-box" href="https://youtu.be/wa33XkWH7uo" target="_blank" rel="noopener" data-video="incomplete-memory">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/Dp8oqFpv5i8" target="_blank" rel="noopener" data-video="costa-rica">
+            <img class="video-thumb" src="assets/thumbnails/costa-rica.jpg" alt="Costa Rica Edit thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Costa Rica Edit</div>
+            <a class="watch-box" href="https://youtu.be/Dp8oqFpv5i8" target="_blank" rel="noopener" data-video="costa-rica">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/Hhq83PK2Z_4" target="_blank" rel="noopener" data-video="jazz">
+            <img class="video-thumb" src="assets/thumbnails/jazz.jpg" alt="Gonzaga Jazz — Live Recording Session thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Gonzaga Jazz — Live Recording Session</div>
+            <a class="watch-box" href="https://youtu.be/Hhq83PK2Z_4" target="_blank" rel="noopener" data-video="jazz">Watch Now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <img src="assets/photos/bike-jump.jpg" alt="Mountain Biking Action Shot" class="featured" />
+
+    <img src="assets/photos/waterfall.jpg" alt="Waterfall Landscape" />
+    <img src="assets/photos/ski.jpg" alt="Backcountry skiing photo" />
+    <img src="assets/photos/headshot.jpg" alt="Portrait Headshot" />
+
+    <img src="assets/photos/fluffy-sheep.jpg" alt="Fluffy Sheep Landscape" class="featured" />
+  </section>
+
+  <footer>
+    <h2 style="font-size: 1.5rem; font-weight: 900; text-transform: uppercase;">Let's Build Something.</h2>
+    <p style="margin-top: 1rem; color: #888; font-size: 0.85rem;">&copy; 2026 Clark Vowels.</p>
+  </footer>
+
+  <script src="assets/lightbox.js" defer></script>
+</body>
+</html>

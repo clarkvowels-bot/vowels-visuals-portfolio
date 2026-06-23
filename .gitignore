@@ -1,0 +1,11 @@
+# Original media masters — kept locally, NEVER deployed or committed.
+# These are the source files build-media.ps1 compresses into public/assets.
+/Videos/
+/Photos/
+/Thumbnails/
+*.~tmp
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+node_modules/

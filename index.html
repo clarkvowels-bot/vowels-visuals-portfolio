@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clark Vowels | Data & Terrain</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Base & Patagonia-Style Tokens ─────────────────────────────── */
+    :root {
+      --brand-black: #111111;
+      --brand-white: #ffffff;
+      --brand-gray: #f5f5f5;
+      --brand-dark-gray: #333333;
+      --font-main: 'Inter', Helvetica, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background: var(--brand-white);
+      color: var(--brand-black);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Buttons (Utilitarian & Bold) ──────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .btn-light {
+      background: var(--brand-white);
+      color: var(--brand-black);
+    }
+    .btn-light:hover {
+      background: var(--brand-black);
+      color: var(--brand-white);
+      border-color: var(--brand-black);
+    }
+    .btn-dark {
+      background: var(--brand-black);
+      color: var(--brand-white);
+    }
+    .btn-dark:hover {
+      background: transparent;
+      color: var(--brand-black);
+      border-color: var(--brand-black);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--brand-white);
+      border: 2px solid var(--brand-white);
+    }
+    .btn-outline:hover {
+      background: var(--brand-white);
+      color: var(--brand-black);
+    }
+
+    /* ─── Minimalist Nav ────────────────────────────────────────────── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: transparent;
+    }
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--brand-white);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brand-white);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* ─── Shared Background Image Class (The "Patagonia" Scrim) ─────── */
+    .bg-image {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      color: var(--brand-white);
+      z-index: 1;
+    }
+    .bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55); /* Adjust this 0.55 to make the image darker or lighter */
+      z-index: -1;
+    }
+
+    /* ─── Hero (Full Bleed Video) ───────────────────────────────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .bg-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .bg-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: 100%;
+      padding: 0 2rem;
+    }
+    .hero-headshot {
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.85);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      color: var(--brand-white);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 600;
+      color: var(--brand-white);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    /* ─── Full-Width Story Block ────────────────────────────────────── */
+    .story-block {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem;
+      overflow: hidden;
+    }
+    .story-block::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+      pointer-events: none;
+    }
+    .story-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      color: var(--brand-white);
+    }
+    .story-tag {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .story-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .story-desc {
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 550px;
+    }
+
+    /* ─── Ethos / Philosophy Statement ──────────────────────────────── */
+    .ethos-block {
+      padding: 8rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 60vh;
+    }
+    /* We ensure text is white because of the dark image background */
+    .ethos-text {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--brand-white);
+      letter-spacing: -0.01em;
+      position: relative;
+      z-index: 2;
+    }
+    .ethos-sub {
+      max-width: 700px;
+      margin: 2rem auto 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── 50/50 Split Feature (Data & Projects) ─────────────────────── */
+    .split-block {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .split-half {
+      flex: 1 1 50%;
+      min-width: 300px;
+      padding: 6rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .split-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .split-desc {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── 2-Up Grid (Smaller Stories) ───────────────────────────────── */
+    .grid-2up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid-item {
+      position: relative;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem;
+      background: var(--brand-black);
+      color: var(--brand-white);
+      overflow: hidden;
+    }
+    .grid-item.bg-video-container::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+      transition: background 0.3s ease;
+    }
+    .grid-item.bg-video-container:hover::after {
+      background: rgba(0,0,0,0.3);
+    }
+    .grid-content {
+      position: relative;
+      z-index: 2;
+    }
+    .grid-title {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .grid-desc {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────── */
+    footer {
+      background: var(--brand-black);
+      color: var(--brand-white);
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      color: var(--brand-white);
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    .footer-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    /* ─── Responsive Adjustments ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1.5rem; }
+      .story-block { padding: 2rem; height: 80vh; }
+      .split-half { padding: 4rem 2rem; }
+      .grid-2up { grid-template-columns: 1fr; }
+      .ethos-block { padding: 5rem 1.5rem; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">CLARK.</a>
+    <ul class="nav-links">
+      <li><a href="ethos.html">Ethos</a></li>
+      <li><a href="index.html#work">Stories</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <video class="bg-video" autoplay loop muted playsinline src="Videos/SplashRevised.mp4"></video>
+    <div class="hero-content">
+      <img class="hero-headshot" src="Photos/TightHeadshot.JPG" alt="Clark Vowels headshot" />
+      <h1 class="hero-title">Data Meets Terrain.</h1>
+      <p class="hero-sub">Business Data Analytics & Economics at Gonzaga University. Connecting global strategy with the grassroots reality of the outdoor industry.</p>
+      <div class="hero-actions">
+        <a href="projects.html" class="btn btn-light">View the Work</a>
+        <a href="ethos.html" class="btn btn-outline">Read the Ethos</a>
+        <a href="Videos/Yankaaz.mp4" target="_blank" rel="noopener" class="btn btn-outline">Watch Yankaaz</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="story-block">
+    <video class="bg-video" autoplay loop muted playsinline src="Videos/DB Reel Final.mp4"></video>
+    <div class="story-content">
+      <p class="story-tag">Video Production & Strategy</p>
+      <h2 class="story-title">Precision Components.</h2>
+      <p class="story-desc">Produced high-impact, narrative-driven visual marketing for Chris King. From component splash reels to full "Dream Build" showcases, crafting content that highlights precision engineering and elevates brand prestige.</p>
+      <a href="Videos/Dream Build Main Final.mp4" target="_blank" class="btn btn-light">Watch the Film</a>
+    </div>
+  </section>
+
+  <section id="philosophy" class="ethos-block bg-image" style="background-image: url('Photos/WideShot.JPG');">
+    <h2 class="ethos-text">"Economics is more than just forecasting and regression models; it’s a framework for understanding the world around us."</h2>
+    <p class="ethos-sub">While my background is grounded in economics, my passion is translating those perspectives into compelling visual narratives. From growing up in Australia, to studying in New Zealand, visiting familiy in South Africa, or shooting in Costa Rica, a global perspective informs what I document. Outside the classroom, I am focused entirely on the capture. Whether I'm framing a backcountry ski line, directing a brand narrative, or collaborating in a jazz fusion ensemble, I thrive on shooting in high-energy, dynamic environments.</p>
+  </section>
+
+  <section class="split-block">
+    <div class="split-half bg-image" style="background-image: url('Photos/Forest Photo.JPG');">
+      <div style="position: relative; z-index: 2;">
+        <p class="story-tag" style="color: #ccc;">Data Analytics & Economics</p>
+        <h2 class="split-title">The "Nature Access Index"</h2>
+        <p class="split-desc">Developed a regression analysis model using Python and R to quantify the impact of public land proximity on community health outcomes. This project bridges complex economic data manipulation with real-world outdoor advocacy.</p>
+        <a href="https://github.com/YOUR_USERNAME" target="_blank" class="btn btn-outline">View Methodology</a>
+      </div>
+    </div>
+    
+    <div class="split-half bg-image" style="background-image: url('Photos/Cool Rock.JPG');">
+      <div style="position: relative; z-index: 2;">
+        <p class="story-tag" style="color: #ccc;">Commodity Trading</p>
+        <h2 class="split-title">Plateau Forest Products</h2>
+        <p class="split-desc">Incoming summer intern focused on physical commodity trading, negotiation, and supply chain logistics. Leveraging a heavy analytical background to drive business acumen and navigate complex natural resource markets.</p>
+        <a href="mailto:your.email@gonzaga.edu" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2up">
+    <div class="grid-item bg-video-container" style="background-image: url('Photos/Bike Jump.JPG'); background-size: cover; background-position: center;">
+      <video class="bg-video" autoplay loop muted playsinline src="Videos/An Incomplete Memory of a High School Summer.mp4"></video>
+      <div class="grid-content">
+        <p class="story-tag">Storytelling & Consulting</p>
+        <h3 class="grid-title">Freelance Media.</h3>
+        <p class="grid-desc">Directing and editing compelling narrative projects, from brand promotions to outdoor lifestyle documentaries. Helping clients and communities tell authentic stories that drive culture.</p>
+        <a href="freelance.html" class="btn btn-light">View Full Project</a>
+      </div>
+    </div>
+
+    <div class="grid-item bg-image" style="background-image: url('Photos/SkiPhoto.JPG');">
+      <img class="bg-photo" src="Photos/SkiPhoto.JPG" alt="" aria-hidden="true" />
+      <div class="grid-content">
+        <p class="story-tag">Leadership & Logistics</p>
+        <h3 class="grid-title">Gonzaga Ski & Snowboard.</h3>
+        <p class="grid-desc">Orchestrating large-scale trip logistics, budget management, and event planning as the club's Events Coordinator. Focused on facilitating face-to-face community building for hundreds of members.</p>
+        <a href="mailto:your.email@gonzaga.edu" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em;">Let's Build Something.</h2>
+    <div class="footer-links">
+      <a href="mailto:your.email@gonzaga.edu">Email</a>
+      <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank">LinkedIn</a>
+      <a href="https://github.com/YOUR_USERNAME" target="_blank">GitHub</a>
+      <a href="https://instagram.com/YOUR_HANDLE" target="_blank">Instagram</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Clark Vowels. Based in Spokane & Bend.</p>
+  </footer>
+
+</body>
+</html>

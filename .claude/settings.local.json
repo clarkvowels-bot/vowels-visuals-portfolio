@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($total = \\(Get-ChildItem \"D:\\\\clarkwebsite\" -Recurse -File | Measure-Object Length -Sum\\).Sum; \"{0:N1} MB total\" -f \\($total/1MB\\); Get-ChildItem \"D:\\\\clarkwebsite\\\\Videos\" | Select-Object Name, @{n=\"MB\";e={\"{0:N1}\" -f \\($_.Length/1MB\\)}})",
+      "Bash(curl -s http://localhost:8000/contact.html)",
+      "Bash(curl -s http://localhost:8000/projects.html)",
+      "Bash(perl -ni -e 'print unless /href=\"ethos\\\\.html\"/' public/contact.html public/freelance.html public/index.html public/projects.html)"
+    ]
+  }
+}
