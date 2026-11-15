@@ -263,6 +263,26 @@
       aspect-ratio: 21/9;
     }
 
+    /* ─── Gallery Intro Heading ─────────────────────────────────────── */
+    .gallery-intro {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem 2rem;
+    }
+    .gallery-intro h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .gallery-intro p {
+      color: rgba(0,0,0,0.6);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 640px;
+    }
+
     /* ─── Footer ────────────────────────────────────────────────────── */
     footer {
       background: var(--brand-black);
@@ -277,6 +297,7 @@
       .video-index { padding: 0 2rem 4rem; }
       .video-grid { grid-template-columns: 1fr; }
       .video-grid.shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gallery-intro { padding: 0 2rem 1.5rem; }
       .gallery { padding: 0 2rem 4rem; grid-template-columns: 1fr; }
       .gallery .featured { aspect-ratio: 16/9; }
     }
@@ -285,7 +306,7 @@
 <body>
 
   <nav>
-    <a href="index.html" class="nav-logo">vowelsvisuals
+    <a href="index.html" class="nav-logo">vowelsvisuals</a>
     <ul class="nav-links" aria-label="Primary">
       <li><a href="index.html#work">Stories</a></li>
       <li><a href="projects.html">Projects</a></li>
@@ -314,11 +335,21 @@
       <h3 class="cat-title">Long Form <span class="count">Films &amp; features</span></h3>
       <div class="video-grid">
         <article class="video-card">
-          <a href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">
-            <img class="video-thumb" src="assets/thumbnails/nw-kidney-kids.jpg" alt="NW Kidney Kids thumbnail" loading="lazy" />
+          <a href="https://youtu.be/4Jw7nTOPQU8" target="_blank" rel="noopener" data-video="nw-kidney-kids-2026">
+            <img class="video-thumb" src="https://i.ytimg.com/vi/4Jw7nTOPQU8/hqdefault.jpg" alt="Northwest Kidney Kids 2026 thumbnail" loading="lazy" />
           </a>
           <div class="video-meta">
-            <div class="video-title">NW Kidney Kids</div>
+            <div class="video-title">Northwest Kidney Kids 2026</div>
+            <a class="watch-box" href="https://youtu.be/4Jw7nTOPQU8" target="_blank" rel="noopener" data-video="nw-kidney-kids-2026">Watch Now</a>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <a href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">
+            <img class="video-thumb" src="assets/thumbnails/nw-kidney-kids.jpg" alt="Northwest Kidney Kids 2025 thumbnail" loading="lazy" />
+          </a>
+          <div class="video-meta">
+            <div class="video-title">Northwest Kidney Kids 2025</div>
             <a class="watch-box" href="https://youtu.be/q_Q4FTNUW3I" target="_blank" rel="noopener" data-video="nw-kidney-kids">Watch Now</a>
           </div>
         </article>
@@ -438,14 +469,37 @@
     </div>
   </section>
 
+  <section class="gallery-intro">
+    <h2>Photography</h2>
+    <p>A visual field notebook — brand campaigns, backcountry lines, and quiet moments from the road.</p>
+  </section>
+
   <section class="gallery">
-    <img src="assets/photos/bike-jump.jpg" alt="Mountain Biking Action Shot" class="featured" />
+    <img src="assets/photos/premiere-collage-1.webp" alt="Ski Club Da Movie premiere — crowd and theater collage" class="featured" loading="lazy" />
 
-    <img src="assets/photos/waterfall.jpg" alt="Waterfall Landscape" />
-    <img src="assets/photos/ski.jpg" alt="Backcountry skiing photo" />
-    <img src="assets/photos/headshot.jpg" alt="Portrait Headshot" />
+    <img src="assets/photos/alpine-peaks.jpg" alt="Snow-draped alpine peaks under a deep blue sky" loading="lazy" />
+    <img src="assets/photos/ridgeline-view.jpg" alt="Looking out over a jagged mountain ridgeline" loading="lazy" />
+    <img src="assets/photos/mossy-forest.jpg" alt="Moss-draped evergreens in coastal fog" loading="lazy" />
+    <img src="assets/photos/coast-sunrise.jpg" alt="Sunrise over a sea of fog through evergreens" loading="lazy" />
+    <img src="assets/photos/mint-hut.jpg" alt="Red backcountry hut below alpine peaks" loading="lazy" />
+    <img src="assets/photos/powder-house.jpg" alt="A-frame cabin framed by wildflowers and green mountains" loading="lazy" />
+    <img src="assets/photos/glacier-basin.jpg" alt="Snowy glacier basin beneath jagged peaks at dusk" loading="lazy" />
+    <img src="assets/photos/starry-forest.jpg" alt="Silhouetted evergreens under a deep blue starlit sky" loading="lazy" />
+    <img src="assets/photos/sheep-sunset.jpg" alt="Feeding a sheep at golden-hour sunset by a fence" loading="lazy" />
 
-    <img src="assets/photos/fluffy-sheep.jpg" alt="Fluffy Sheep Landscape" class="featured" />
+    <img src="assets/photos/premiere-collage-2.webp" alt="Ski Club Da Movie premiere — audience and behind-the-scenes collage" class="featured" loading="lazy" />
+
+    <img src="assets/photos/begoat-bike.jpg" alt="Be Goat energy drink placed in a bike bottle cage" loading="lazy" />
+    <img src="assets/photos/begoat-huckleberry.jpg" alt="Hand holding a Be Goat Huckleberry Lemonade can" loading="lazy" />
+    <img src="assets/photos/begoat-fire.jpg" alt="Fisheye shot of a Be Goat can by a campfire" loading="lazy" />
+    <img src="assets/photos/begoat-snow.jpg" alt="Fisheye shot of a Be Goat can on snow at night" loading="lazy" />
+    <img src="assets/photos/begoat-bike-fisheye.jpg" alt="Fisheye shot of Be Goat cans on a bike in autumn light" loading="lazy" />
+
+    <img src="assets/photos/cased-collage.webp" alt="CASED trail pants — brand campaign collage in the forest" class="featured" loading="lazy" />
+
+    <img src="assets/photos/surf-factory.jpg" alt="Black and white — young surfer by the board racks" loading="lazy" />
+    <img src="assets/photos/former-shaper.jpg" alt="Black and white portrait of a surfboard shaper" loading="lazy" />
+    <img src="assets/photos/surfboard-rack.jpg" alt="Surfboards and fins racked in the shade" loading="lazy" />
   </section>
 
   <footer>

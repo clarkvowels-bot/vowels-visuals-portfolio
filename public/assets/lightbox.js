@@ -16,9 +16,10 @@
 ─────────────────────────────────────────────────────────────────────────── */
 const VIDEOS = {
   // ── Long form ───────────────────────────────────────────────
-  'nw-kidney-kids':    'q_Q4FTNUW3I',   // NW Kidney Kids
+  'nw-kidney-kids-2026': '4Jw7nTOPQU8',   // Northwest Kidney Kids 2026
+  'nw-kidney-kids':    'q_Q4FTNUW3I',   // Northwest Kidney Kids 2025
   'dream-build':       'd704kzscwJc',   // Chris King — Dream Build
-  'ski-club-movie':    '3Bt_oEPswZ0',   // Gonzaga Ski Club — "Ski Club Da Movie"
+  'ski-club-movie':    'NGnISnu97Qk',   // Gonzaga Ski Club — "Ski Club Da Movie"
   // ── Short form (vertical YouTube Shorts) ────────────────────
   'splash-reel':       '_NVJiuPBWW0',   // Chris King — "Splash" Reel
   'outdoors-reel':     't06KRDObvN4',   // Gonzaga Outdoors Reel
